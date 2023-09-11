@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  pgdb:
+    image: postgres:14.1-alpine
+    restart: on-failure
+
+    environment:
+      POSTGRES_USER: twitty
+      POSTGRES_PASSWORD: tw!tty
+
+    volumes:
+      - "db0:/var/lib/postgresql/twitty"
+
+    ports:
+      - "5353:5432"
+
+    expose:
+      - "5353"
+
+    networks:
+      - tweet
+
+  server:
+    build: .
+    restart: on-failure
+
+    environment:
+      DB_HOST: pgdb
+      DB_PASSWORD: "tw!tty"
+      DB_USER: "twitty"
+      DB_PORT: 5432
+      DB_NAME: "twitty"
+      SECRET_KEY: "qwertyuiop"
+      DEBUG_MODE: true
+
+    ports:
+      - "8000:8000"
+
+    depends_on:
+      - pgdb
+
+    expose:
+      - "8000"
+
+    networks:
+      - tweet
+
+volumes:
+  db0:
+    driver: local
+
+networks:
+  tweet:
+    driver: bridge
