@@ -2,3 +2,4 @@
 /.idea/
 /.vs_code/
 .env
+/server/__pycache__/
