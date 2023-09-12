@@ -1,4 +1,4 @@
-FROM hub.hamdocker.ir/library/python:3.11.2-slim
+FROM python:3.11.2-bullseye
 
 WORKDIR /app
 

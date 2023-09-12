@@ -15,9 +15,6 @@ services:
     ports:
       - "5353:5432"
 
-    expose:
-      - "5353"
-
     networks:
       - tweet
 
